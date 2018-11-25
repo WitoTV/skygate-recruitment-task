@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); 
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
 	'context': path.resolve(__dirname, 'src'),
@@ -18,7 +19,10 @@ module.exports = {
 		new HtmlWebPackPlugin({
 			template: "./index.html",
 			filename: "./index.html"
-		})
+		}),
+		new CleanWebpackPlugin(
+			['dist/js', 'dist/css', 'dist/index.html']
+		)
 	],
 	'entry': {
 		'app': './js/app.jsx'
