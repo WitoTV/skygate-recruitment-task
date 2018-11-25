@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "assets": "webpack --mode production",
-    "assets:watch": "webpack-dev-server --mode development",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development",
     "test": "",
     "test:watch": ""
   },
