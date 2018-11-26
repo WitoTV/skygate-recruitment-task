@@ -6,10 +6,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
 	'context': path.resolve(__dirname, 'src'),
-	devServer: {
-		contentBase: path.join(__dirname, 'dist'),
-		compress: true,
-		port: 9000
+	'devServer': {
+		'contentBase': path.join(__dirname, 'dist'),
+		'compress': true,
+		'port': 9000
 	},
 	'plugins': [
 		new MiniCssExtractPlugin({
