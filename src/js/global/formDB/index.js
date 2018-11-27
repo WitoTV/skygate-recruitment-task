@@ -10,6 +10,7 @@ class DB {
 			co.createIndex('id', 'id', {unique: true});
 			co.createIndex('parent', 'parent', {unique: false});
 			co.createIndex('type', 'type', {unique: false});
+			co.createIndex('condition', 'condition', {unique: false});
 			co.createIndex('question', 'question', {unique: false});
 			return co;
 		});
