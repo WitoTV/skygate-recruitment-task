@@ -4,7 +4,6 @@ import FormGenerator from './components/formGenerator';
 
 import 'scss/style.scss';
 
-
 const app = (
 	<FormGenerator />
 );
