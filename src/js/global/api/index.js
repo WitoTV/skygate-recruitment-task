@@ -10,16 +10,16 @@ const response = () => {
 
 export default response;
 
-function getNestedFields(arr, parent) {
-	let out = []
-	arr.map((field) => {
+const getNestedFields = (array, parent) => {
+	let output = []
+	array.map((field) => {
 		if(field.parent == parent) {
-			let fields = getNestedFields(arr, field.id)
+			let fields = getNestedFields(array, field.id)
 			if(fields.length) {
-				 field.subFields = fields
+				 field.subFields = fields;
 			}
-			out.push(field)
+			output.push(field)
 		}
 	})
-	return out
+	return output;
 }
