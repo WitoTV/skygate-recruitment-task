@@ -1,6 +1,7 @@
 import React from 'react';
 import response from 'global/api';
 import Field from './components/field';
+
 class FormPreview extends React.Component {
 	constructor(props) {
 		super(props)
@@ -16,7 +17,7 @@ class FormPreview extends React.Component {
 	render() {
 		const {fields} = this.state;
 		const template = (
-			<form>
+			<form className={'form-wrapper'}>
 				{fields.map((field) => <Field key={field.id} field={field} />)}
 			</form>
 		)

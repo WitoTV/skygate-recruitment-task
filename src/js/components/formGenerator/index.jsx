@@ -4,8 +4,6 @@ import api from 'global/api'
 import Field from './components/field';
 import FormContext from 'global/context';
 
-import './style.scss';
-
 class FormGenerator extends React.Component {
 	constructor(props) {
 		super(props);
@@ -73,9 +71,9 @@ class FormGenerator extends React.Component {
 		const {fields, fieldTemplate, context} = this.state;
 		const template = (
 			<FormContext.Provider value={context}>
-				<div className={'edit-form'}>
+				<div className={'form-wrapper--edit'}>
 					{fields.map((field) => <Field key={field.id} field={field} />)}
-					<div className={'edit-form__controls'}>
+					<div className={'form-wrapper__buttons'}>
 						<button onClick={() => context.updateOrCreateField(fieldTemplate)}>Add Field</button>
 					</div>
 				</div>

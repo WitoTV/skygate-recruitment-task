@@ -1,23 +1,51 @@
 .edit-field {
-	border: 1px solid green;
-	margin-bottom: 20px;
+	min-width: 280px;
 	margin-top: 20px;
-	&__condition, &__question {
+	margin-bottom: 20px;
+	&__question {
+		width: 300px;
+		margin-bottom: 20px;
 		display: flex;
 		flex-wrap: wrap;
-		align-items: flex-start;
 		label {
+			display: block;
 			width: 100%;
+			margin-bottom: 10px;
 		}
 		input, select {
-			margin-right: 10px;
+			width: 100%;
+		}
+	}
+	&__type {
+		width: 300px;
+		label {
+			display: block;
+			width: 100%;
+			margin-bottom: 10px;
+		}
+	}
+	&__condition {
+		width: 300px;
+		margin-bottom: 20px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		label {
+			display: block;
+			width: 100%;
+			margin-bottom: 10px;
+		}
+		input, select {
+			width: calc(50% - 10px);
 		}
 	}
 	&__subfields {
 		margin-left: 20px;
 	}
 	&__controls {
+		width: 300px;
+		margin-top: 10px;
 		display: flex;
-    	justify-content: flex-end;
+		justify-content: flex-end;
 	}
 }

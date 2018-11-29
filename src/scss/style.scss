@@ -1,1 +1,36 @@
 @import './variables';
+@import './layout/inputs';
+
+html, body {
+	margin: 0;
+	padding: 0;
+	background: rgb(243, 243, 243);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.form-wrapper {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+	@media screen and (min-width: 400px) {
+		width: 350px;
+	}
+	label {
+		margin-bottom: 10px;
+	}
+	&--edit {
+		display: inline-block;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	&__buttons {
+		display: flex;
+		justify-content: flex-end;
+	}
+}

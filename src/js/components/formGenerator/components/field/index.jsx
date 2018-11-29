@@ -67,7 +67,7 @@ class Field extends React.Component {
 					<label>Question:</label>
 					<input onChange={this.setQuestion} defaultValue={field.question} />
 				</div>
-				<div className={'edit-field__question'}>
+				<div className={'edit-field__type'}>
 					<label>Type:</label>
 					<select onChange={this.setType} value={field.type}>
 						<option value={'text'}>Text</option>
