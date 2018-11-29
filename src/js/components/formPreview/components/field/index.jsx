@@ -1,32 +1,66 @@
 import React from 'react';
 
+import './style.scss';
+
 class Field extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			checkValue: '',
+			checkValue: (() => {
+				if (this.props.field.type === 'boolean') {
+					return true
+				} else {
+					return '';
+				}
+			})(),
 		}
-		this.setValueCheck = this.setValueCheck.bind(this);
+		this.setValue = this.setValue.bind(this);
 	}
-	setValueCheck(e) {
-		this.setState({checkValue: e.target.value})
+	setValue(e) {
+		let value = e.target.value;
+		this.setState({checkValue: value});
 	}
 	render() {
+		const {checkValue} = this.state;
 		const {field} = this.props;
 		const template = (
 			<React.Fragment>
-				<fieldset>
-					<div>
+				<div className={'field'}>
+					<div className={'field__anwser'}>
 						<label>
 							{field.question}
 						</label>
-						<input onChange={this.setValueCheck} />
+						{field.type !== 'boolean' ? (
+							<input type={field.type === 'number' ? 'number' : 'text'} name={'condition-rule'} onChange={this.setValue} />
+						) : (
+							<select name={'condition-rule'} onChange={this.setValue}>
+								<option value={true}>Yes</option>
+								<option value={false}>No</option>
+							</select>
+						)
+						}
 					</div>
-					{field.subFields && field.subFields.map((singleField) => {
-						console.log(this.state.checkValue, singleField.condition);
-						<Field key={singleField.id} field={singleField} />
-					})}
-				</fieldset>
+					{field.subFields && <div className={'field__subfields'}>
+						{field.subFields.map((subField) => {
+							if (subField.parentType === 'number') {
+								if (subField.condition.type === 'greater' && Number(subField.condition.rule) > Number(checkValue)) {
+									return (<Field key={subField.id} field={subField} />);
+								}
+								if (subField.condition.type === 'less' && Number(subField.condition.rule) < Number(checkValue)) {
+									return (<Field key={subField.id} field={subField} />);
+								}
+								if (subField.condition.rule.toString() === checkValue.toString()) {
+									return (<Field key={subField.id} field={subField} />);
+								}
+							} else {
+								if (subField.condition.rule.toString() === checkValue.toString()) {
+									return (<Field key={subField.id} field={subField} />);
+								}
+							}
+
+						})}
+					</div>}
+				</div>
 			</React.Fragment>
 		);
 		return template;

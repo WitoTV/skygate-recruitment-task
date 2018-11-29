@@ -1,49 +1,89 @@
 import React from 'react';
-import Field from './components/field';
 import DB from 'global/formDB';
+import api from 'global/api'
+import Field from './components/field';
+import FormContext from 'global/context';
+
+import './style.scss';
 
 class FormGenerator extends React.Component {
 	constructor(props) {
 		super(props);
 		this.db = new DB();
 		this.state = {
-			'fields': []
+			fieldTemplate: {
+				parent: -1,
+				question: '',
+				type: 'text'
+			},
+			fields: [],
+			context: {
+				updateOrCreateField: this.updateOrCreateField.bind(this),
+				deleteField: this.deleteField.bind(this),
+				updateSubFieldCondition: this.updateSubFieldCondition.bind(this)
+			}
 		}
-		this.findAllBaseFields = this.findAllBaseFields.bind(this);
-		this.addBaseField = this.addBaseField.bind(this);
-		this.onFieldDelete = this.onFieldDelete.bind(this);
 	}
 	componentDidMount() {
-		this.findAllBaseFields();
+		this.getForm();
 	}
-	findAllBaseFields() {
-		this.db.get('parent', -1)
-		.then((fields) => {
+	getForm() {
+		api().then((fields) => {
 			this.setState({fields});
 		})
 	}
-	addBaseField() {
-		this.db.set({'parent': -1, 'type': 'text'})
+	updateOrCreateField(field) {
+		this.db.set(field)
 		.then(() => {
-			this.findAllBaseFields();
+			this.getForm();
 		})
 	}
-	onFieldDelete(id) {
+	deleteField(id) {
 		this.db.delete(id)
 		.then(() => {
-			this.findAllBaseFields();
+			this.db.get('parent', id)
+			.then((childFiels) => {
+				this.getForm();
+				childFiels.map((childField) => {
+					this.db.delete(childField.id)
+					.then(() => this.getForm());
+				});
+			})
 		})
 	}
+	updateSubFieldCondition(id, type) {
+		this.db.get('parent', id)
+		.then((childFiels) => {
+				this.getForm();
+				childFiels.map((childField) => {
+					let condition = childField.condition;
+					condition.rule = '';
+					if (type !== 'number' && condition.type !== 'equal') {
+						condition.type = 'equal';
+					}
+					if (type === 'boolean') {
+						condition.rule = true;
+					}
+					this.db.set({...childField, parentType: type, condition})
+					.then(() => this.getForm());
+				});
+			})
+	}
 	render() {
-		const {fields} = this.state;
+		const {fields, fieldTemplate, context} = this.state;
 		const template = (
-			<React.Fragment>
-				{fields.map((field) => <Field key={field.id} onDelete={this.onFieldDelete} id={field.id} />)}
-				<button onClick={this.addBaseField}>Add field</button>
-			</React.Fragment>
+			<FormContext.Provider value={context}>
+				<div className={'edit-form'}>
+					{fields.map((field) => <Field key={field.id} field={field} />)}
+					<div className={'edit-form__controls'}>
+						<button onClick={() => context.updateOrCreateField(fieldTemplate)}>Add Field</button>
+					</div>
+				</div>
+			</FormContext.Provider>
 		)
 		return template;
 	}
 }
+
 
 export default FormGenerator;

@@ -1,5 +1,23 @@
-.field {
-	&__sub-field {
+.edit-field {
+	border: 1px solid green;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	&__condition, &__question {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		label {
+			width: 100%;
+		}
+		input, select {
+			margin-right: 10px;
+		}
+	}
+	&__subfields {
 		margin-left: 20px;
+	}
+	&__controls {
+		display: flex;
+    	justify-content: flex-end;
 	}
 }

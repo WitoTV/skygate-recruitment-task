@@ -1,5 +1,5 @@
 import React from 'react';
-import response from 'global/dbIntoJson';
+import response from 'global/api';
 import Field from './components/field';
 class FormPreview extends React.Component {
 	constructor(props) {
