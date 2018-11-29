@@ -24,3 +24,9 @@ yarn run assets
 # Run development mode on localhost:9000
 yarn run assets:watch
 ```
+
+## Routes
+```
+Generator: localhost:9000/generator
+Preview: localhost:9000
+```
