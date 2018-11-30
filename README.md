@@ -16,13 +16,13 @@ yarn install
 
 ## Building
 ```sh
-yarn run assets
+yarn run build
 ```
 
 ## Development
 ```sh
 # Run development mode on localhost:9000
-yarn run assets:watch
+yarn run start
 ```
 
 ## Routes
