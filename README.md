@@ -22,7 +22,7 @@ yarn run build
 ## Development
 ```sh
 # Run development mode on localhost:9000
-yarn run start
+yarn start
 ```
 
 ## Routes
