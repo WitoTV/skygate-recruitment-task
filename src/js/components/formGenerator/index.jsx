@@ -72,6 +72,7 @@ class FormGenerator extends React.Component {
 		const template = (
 			<FormContext.Provider value={context}>
 				<div className={'form-wrapper--edit'}>
+					<div className={'form-wrapper__header'}>Form builder</div>
 					{fields.map((field) => <Field key={field.id} field={field} />)}
 					<div className={'form-wrapper__buttons'}>
 						<button onClick={() => context.updateOrCreateField(fieldTemplate)}>Add Field</button>
